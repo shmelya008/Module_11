@@ -1,3 +1,6 @@
+import inspect
+
+
 class House:
     def __init__(self, name, number_Of_Floors):
         self.name = name
@@ -19,7 +22,7 @@ def introspection_info(obj):
     res['type'] = type(obj)
     res['callable'] = callable(obj)
     res['attributes'] = hasattr(obj, 'setNewNumberOfFloors')
-    res['module'] = obj.__module__
+    res['module'] = inspect.getmodule(introspection_info).__name__
     res['hash'] = obj.__hash__()
     res['methods'] = dir(obj)
     return res
@@ -30,4 +33,8 @@ print(class_info)
 object_info = introspection_info(h_1)
 print(object_info)
 
+object_info = introspection_info('abc')
+print(object_info)
+object_info = introspection_info(42)
+print(object_info)
 
