@@ -21,7 +21,7 @@ def introspection_info(obj):
     res = {}
     res['type'] = type(obj)
     res['callable'] = callable(obj)
-    res['attributes'] = hasattr(obj, 'setNewNumberOfFloors')
+    res['attributes'] = [attr for attr in dir(obj) if not attr.startswith('__') and not callable(getattr(obj, attr))]
     res['module'] = inspect.getmodule(introspection_info).__name__
     res['hash'] = obj.__hash__()
     res['methods'] = dir(obj)
@@ -37,4 +37,3 @@ object_info = introspection_info('abc')
 print(object_info)
 object_info = introspection_info(42)
 print(object_info)
-
